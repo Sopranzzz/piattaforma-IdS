@@ -5,6 +5,9 @@ import java.util.List;
 
 public class Gestore extends Utente {
 
+    private String nome;
+    private String provincia;
+    private String regione;
     private List<Turista> listaTuristi;
     private List<TuristaAutenticato> turistaAutenticatoList;
     private List<Contributor> contributorList;
@@ -36,5 +39,11 @@ public class Gestore extends Utente {
 
     public void addContributorAutorizzato(ContributorAutorizzato contributorAutorizzato) {
         this.contributorAutorizzatoList.add(contributorAutorizzato);
+    }
+
+    public void addComune(String nome, String provincia, String regione) {
+        this.nome = nome;
+        this.provincia = provincia;
+        this.regione = regione;
     }
 }
