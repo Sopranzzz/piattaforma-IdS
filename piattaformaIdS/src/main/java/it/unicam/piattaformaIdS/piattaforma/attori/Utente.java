@@ -1,9 +1,9 @@
 package it.unicam.piattaformaIdS.piattaforma.attori;
 
 public abstract class Utente {
-    private String username;
-    private String email;
-    private String password;
+    public String username;
+    public String email;
+    public String password;
 
     public Utente(String username, String email, String password) {
         this.username = username;
@@ -29,6 +29,5 @@ public abstract class Utente {
                     "speciale; inoltre, deve essere lunga almeno 5 caratteri!");
         }
     }
-
 
 }
