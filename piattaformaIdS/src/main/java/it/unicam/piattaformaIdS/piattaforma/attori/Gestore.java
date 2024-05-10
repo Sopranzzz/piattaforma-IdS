@@ -13,8 +13,11 @@ public class Gestore extends Utente {
     private List<Contributor> contributorList;
     private List<ContributorAutorizzato> contributorAutorizzatoList;
 
+    public boolean isAuthroized;
+
     public Gestore(String username, String email, String password) {
         super(username, email, password);
+        this.isAuthroized = false;
     }
 
     public List<Turista> getTuristaList() {
@@ -45,5 +48,13 @@ public class Gestore extends Utente {
         this.nome = nome;
         this.provincia = provincia;
         this.regione = regione;
+    }
+
+    public void getRichiesta(Contributor contributor) {
+        if(contributor.getContenuti().size() > 365) {
+            isAuthroized = true;
+        } else {
+            this.isAuthroized = false;
+        }
     }
 }

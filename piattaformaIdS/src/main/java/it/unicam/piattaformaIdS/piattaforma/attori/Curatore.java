@@ -7,8 +7,10 @@ public class Curatore extends Utente {
         super(username, email, password);
     }
 
-    private void aggiungiContenutoContributor() {
-
+    private void aggiungiContenutoContributor(Contributor contributor, String contenuto) {
+        if (!contributor.isAuthorized) {
+            contributor.aggiungiContenuto(contenuto);
+        }
     }
 
     private void pubblicaSocial(String descrizione) {
