@@ -4,12 +4,12 @@ import java.util.List;
 
 public class ConcreteContest extends Contest {
     private String autore;
-    public List<Utente> partecipanti;
-    public String nome;
-    public String tema;
-    public String regole;
-    public int dataInizio;
-    public int dataFine;
+    private List<Utente> partecipanti;
+    private String nome;
+    private String tema;
+    private String regole;
+    private int dataInizio;
+    private int dataFine;
 
     public ConcreteContest(String autore, String nome, String tema, String regole, int dataInizio, int dataFine) {
         this.autore = autore;
