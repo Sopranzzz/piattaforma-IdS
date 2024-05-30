@@ -1,4 +1,4 @@
-package it.unicam.piattaformaIdS.piattaforma.contenuti;
+package it.unicam.piattaformaIdS.piattaforma.contenuto;
 
 import it.unicam.piattaformaIdS.piattaforma.utenti.Utente;
 

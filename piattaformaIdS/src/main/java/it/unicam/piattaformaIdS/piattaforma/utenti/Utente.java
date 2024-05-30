@@ -1,7 +1,17 @@
 package it.unicam.piattaformaIdS.piattaforma.utenti;
 
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "tipoUtente", discriminatorType = DiscriminatorType.STRING)
+@NoArgsConstructor(force = true)
+@Getter
 public abstract class Utente {
     public String username;
+    @Id
     public String email;
     public String password;
 

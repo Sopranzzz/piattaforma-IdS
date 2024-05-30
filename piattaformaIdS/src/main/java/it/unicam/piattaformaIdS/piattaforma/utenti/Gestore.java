@@ -1,59 +1,24 @@
 package it.unicam.piattaformaIdS.piattaforma.utenti;
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.util.List;
-
+@Setter
+@Getter
+@Entity
+@NoArgsConstructor(force = true)
+@DiscriminatorValue("Gestore")
 public class Gestore extends Utente {
 
-    private String nome;
-    private String provincia;
-    private String regione;
-    private List<Turista> listaTuristi;
-    private List<TuristaAutenticato> turistaAutenticatoList;
-    private List<Contributor> contributorList;
-    private List<ContributorAutorizzato> contributorAutorizzatoList;
+    public int puntiAutenticazione;
+    public int contenutiPubblicati;
 
-    public boolean isAuthroized;
-
-    public Gestore(String username, String email, String password) {
+    public Gestore(String username, String email, String password, int puntiAutenticazione, int contenutiPubblicati) {
         super(username, email, password);
-        this.isAuthroized = false;
+        this.contenutiPubblicati = contenutiPubblicati;
+        this.puntiAutenticazione = puntiAutenticazione;
     }
 
-    public List<Turista> getTuristaList() {
-        return this.listaTuristi;
-    }
-
-    public List<TuristaAutenticato> getTuristaAutenticatoList() {
-        return this.turistaAutenticatoList;
-    }
-
-    public List<Contributor> getContributorList() {
-        return this.contributorList;
-    }
-
-    public List<ContributorAutorizzato> getContributorAutorizzatoList() {
-        return this.contributorAutorizzatoList;
-    }
-
-    public void addTuristaAutenticato(TuristaAutenticato turistaAutenticato) {
-        this.turistaAutenticatoList.add(turistaAutenticato);
-    }
-
-    public void addContributorAutorizzato(ContributorAutorizzato contributorAutorizzato) {
-        this.contributorAutorizzatoList.add(contributorAutorizzato);
-    }
-
-    public void addComune(String nome, String provincia, String regione) {
-        this.nome = nome;
-        this.provincia = provincia;
-        this.regione = regione;
-    }
-
-    public void getRichiesta(Contributor contributor) {
-        if(contributor.getContenuti().size() > 365) {
-            isAuthroized = true;
-        } else {
-            this.isAuthroized = false;
-        }
-    }
 }

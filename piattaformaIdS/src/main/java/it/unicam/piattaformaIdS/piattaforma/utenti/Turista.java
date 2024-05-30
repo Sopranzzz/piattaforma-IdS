@@ -3,11 +3,11 @@ package it.unicam.piattaformaIdS.piattaforma.utenti;
 public class Turista extends Utente {
 
     public String contenutoContest;
-    public Turista(String username, String email, String password) {
+    public int punti;
+
+    public Turista(String username, String email, String password, int punti) {
         super(username, email, password);
+        this.punti = punti;
     }
 
-    public void inviaContenutoContest(String contenuto) {
-        this.contenutoContest = contenuto;
-    }
 }
