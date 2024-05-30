@@ -1,6 +1,6 @@
 package it.unicam.piattaformaIdS.handler;
 
-import it.unicam.piattaformaIdS.piattaforma.attori.Utente;
+import it.unicam.piattaformaIdS.piattaforma.utenti.Utente;
 
 public class UtenteHandler {
     public Utente utente;

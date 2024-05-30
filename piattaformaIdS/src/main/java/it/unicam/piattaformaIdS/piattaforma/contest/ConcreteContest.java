@@ -1,5 +1,5 @@
 package it.unicam.piattaformaIdS.piattaforma.contest;
-import it.unicam.piattaformaIdS.piattaforma.attori.Utente;
+import it.unicam.piattaformaIdS.piattaforma.utenti.Utente;
 import java.util.List;
 
 public class ConcreteContest extends Contest {

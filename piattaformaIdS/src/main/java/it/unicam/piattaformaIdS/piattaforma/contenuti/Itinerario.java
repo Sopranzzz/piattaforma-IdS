@@ -1,6 +1,6 @@
 package it.unicam.piattaformaIdS.piattaforma.contenuti;
 
-import it.unicam.piattaformaIdS.piattaforma.attori.Utente;
+import it.unicam.piattaformaIdS.piattaforma.utenti.Utente;
 
 import java.util.List;
 

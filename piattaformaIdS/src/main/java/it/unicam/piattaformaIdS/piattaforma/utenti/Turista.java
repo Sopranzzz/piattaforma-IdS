@@ -1,4 +1,4 @@
-package it.unicam.piattaformaIdS.piattaforma.attori;
+package it.unicam.piattaformaIdS.piattaforma.utenti;
 
 public class Turista extends Utente {
 

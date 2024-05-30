@@ -1,6 +1,5 @@
-package it.unicam.piattaformaIdS.piattaforma.attori;
+package it.unicam.piattaformaIdS.piattaforma.utenti;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Gestore extends Utente {
