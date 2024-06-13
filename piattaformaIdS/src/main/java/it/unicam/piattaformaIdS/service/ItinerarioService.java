@@ -18,12 +18,13 @@ public class ItinerarioService {
         return true;
     }
 
-    public boolean eliminaItinerario(long id) {
-        if(this.contenutoRepository.existsById(id)) {
-            Itinerario daEliminare = (Itinerario) this.contenutoRepository.findById(id).get();
-            this.contenutoRepository.deleteById(id);
-        }
+    public boolean eliminaItinerario(Itinerario itinerario) {
+        this.contenutoRepository.delete(itinerario);
         return true;
+    }
+
+    public void salva(Itinerario itinerario) {
+        this.contenutoRepository.save(itinerario);
     }
 
 }
