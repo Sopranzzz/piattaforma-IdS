@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.util.Arrays.stream;
+
 @Service
 public class ContenutoService {
 
@@ -31,7 +33,7 @@ public class ContenutoService {
     }
 
     public List<Contenuto> getContenutiInPending(String username) {
-        return this.contenutoRepository.findContenutiByUsernameAutore(username)
+        return this.contenutoRepository.findByAutoreContenuto(username)
                 .stream().filter(Contenuto::isPending).toList();
     }
 

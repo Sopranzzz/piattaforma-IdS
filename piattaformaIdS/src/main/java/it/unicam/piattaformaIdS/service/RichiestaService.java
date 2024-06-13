@@ -24,7 +24,7 @@ public class RichiestaService {
     }
 
     public Gestore getGestore() {
-        return (Gestore) this.utenteRepository.findAllByUtente(getGestore().email);
+        return (Gestore) this.utenteRepository.findAllByUsername(getGestore().username);
     }
 
     public boolean creaRichiestaAutenticazione(String email) {
@@ -51,7 +51,7 @@ public class RichiestaService {
             return false;
         }
         Contributor contributor = (Contributor) this.utenteRepository.findById(username).get();
-        List<Contenuto> contenutiPubblicati = this.contenutoRepository.findContenutiByUsernameAutore(username);
+        List<Contenuto> contenutiPubblicati = this.contenutoRepository.findByAutoreContenuto(username);
         if (contenutiPubblicati.size() > 20) {
             ContributorAutorizzato contributorAutorizzato = new ContributorAutorizzato
                     (contributor.username, contributor.email, contributor.password);

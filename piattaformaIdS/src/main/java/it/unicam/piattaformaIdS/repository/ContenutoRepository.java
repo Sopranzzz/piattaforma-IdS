@@ -6,5 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface ContenutoRepository extends JpaRepository<Contenuto, Long> {
-    List<Contenuto> findContenutiByUsernameAutore(String username);
+    List<Contenuto> findByAutoreContenuto(String autoreContenuto);
 }
+

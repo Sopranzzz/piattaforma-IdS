@@ -23,7 +23,7 @@ public class ContestController {
 
     @PostMapping("/creaContest")
     public ResponseEntity<Object> creaContest(@RequestBody ConcreteContest contest) {
-        String nomeContest = contest.getNomeContest();
+        String nomeContest = contest.getNome();
         String autore = contest.getAutore();
         String tema = contest.getTema();
         int durata = contest.getDurata();

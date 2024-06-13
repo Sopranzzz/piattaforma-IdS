@@ -10,14 +10,14 @@ import lombok.NoArgsConstructor;
 @Getter
 public class ConcreteContest extends Contest {
 
-    private String nomeContest;
+    private String nome;
     private String autore;
     private String tema;
     private int durata;
 
     public ConcreteContest(String nomeContest, String autore,
                            String tema, int durata) {
-        this.nomeContest = nomeContest;
+        this.nome = nomeContest;
         this.autore = autore;
         this.tema = tema;
         this.durata = durata;
@@ -26,7 +26,7 @@ public class ConcreteContest extends Contest {
     @Override
     public String getInfoContest() {
         return "I dettagli del contest sono i seguenti: Autore: " + this.autore + ";" +
-                "Nome: " + this.nomeContest + ";" + "Tema: " + this.tema;
+                "Nome: " + this.nome + ";" + "Tema: " + this.tema;
     }
 
     @Override
