@@ -40,4 +40,5 @@ public class RichiestaController {
                 .status(HttpStatus.FORBIDDEN)
                 .body("Non hai abbastanza contributi per richiedere l'autorizzazione.");
     }
+
 }
