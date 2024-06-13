@@ -31,9 +31,4 @@ public class POIService {
         this.contenutoRepository.delete(poi);
     }
 
-    public void aggiungiPOIPending(POI poi) {
-        poi.setPending(true);
-        this.contenutoRepository.save(poi);
-    }
-
 }
