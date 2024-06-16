@@ -1,21 +1,31 @@
 package it.unicam.piattaformaIdS.piattaforma.contenuto;
 
-import it.unicam.piattaformaIdS.piattaforma.utenti.Utente;
+import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@NoArgsConstructor
 @Getter
+@Setter
+@Entity
+@Table(name="Contenuto")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class Contenuto {
 
-    public Utente utente;
-    public double idContenuto;
-    public String nomeContenuto;
-    public String descrizioneContenuto;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="contenuto_id")
+    private long ID;
 
-    public Contenuto(Utente utente, double idContenuto, String nomeContenuto, String descrizioneContenuto) {
-        this.utente = utente;
-        this.idContenuto = idContenuto;
-        this.nomeContenuto = nomeContenuto;
-        this.descrizioneContenuto = descrizioneContenuto;
+    private String nome;
+    private String autore;
+    private String descrizione;
+    private StatoContenuto statoContenuto;
+
+    public Contenuto(String nome, String autore, String descrizione) {
+        this.nome = nome;
+        this.autore = autore;
+        this.descrizione = descrizione;
     }
 
 }
