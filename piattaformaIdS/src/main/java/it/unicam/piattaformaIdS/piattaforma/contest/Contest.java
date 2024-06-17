@@ -1,20 +1,18 @@
 package it.unicam.piattaformaIdS.piattaforma.contest;
 
-import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import it.unicam.piattaformaIdS.piattaforma.contenuto.Contenuto;
+import it.unicam.piattaformaIdS.piattaforma.contenuto.Itinerario;
+import it.unicam.piattaformaIdS.piattaforma.contenuto.POI;
+import it.unicam.piattaformaIdS.piattaforma.utenti.Utente;
 
-@Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "tipo_contest", discriminatorType = DiscriminatorType.STRING)
-@NoArgsConstructor(force = true)
-@Getter
-public abstract class Contest {
+import java.util.List;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected long id;
+public interface Contest {
 
-    abstract public String getInfoContest();
-    abstract public int getDurata();
+    List<POI> getPOIs();
+    List<Itinerario> getItinerari();
+    boolean aggiungiPOI(POI poi);
+    boolean aggiungiItinerario(Itinerario itinerario);
+    boolean aggiungiPartecipante(Utente partecipante);
+
 }

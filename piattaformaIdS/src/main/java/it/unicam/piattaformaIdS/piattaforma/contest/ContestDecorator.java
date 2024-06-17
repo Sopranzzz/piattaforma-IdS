@@ -1,37 +1,43 @@
 package it.unicam.piattaformaIdS.piattaforma.contest;
 
+import it.unicam.piattaformaIdS.piattaforma.contenuto.Itinerario;
+import it.unicam.piattaformaIdS.piattaforma.contenuto.POI;
+import it.unicam.piattaformaIdS.piattaforma.utenti.Utente;
 import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
 
-@Entity
-@NoArgsConstructor(force = true)
-@DiscriminatorValue("ContestDecorator")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "tipo_decorator", discriminatorType = DiscriminatorType.STRING)
-public class ContestDecorator extends Contest {
+import java.util.List;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "contest_id", referencedColumnName = "ID")
-    private final Contest contest;
+public class ContestDecorator implements Contest {
+    protected Contest contest;
 
     public ContestDecorator(Contest contest) {
         this.contest = contest;
     }
 
     @Override
-    public String getInfoContest() {
-        if(!(this.contest == null)) {
-            return this.contest.getInfoContest();
-        }
-        return null;
+    public List<POI> getPOIs() {
+        return contest.getPOIs();
     }
 
     @Override
-    public int getDurata() {
-        if(!(this.contest == null)) {
-            return this.contest.getDurata();
-        }
-        return 0;
+    public List<Itinerario> getItinerari() {
+        return contest.getItinerari();
     }
 
+    @Override
+    public boolean aggiungiPOI(POI poi) {
+        return contest.aggiungiPOI(poi);
+    }
+
+    @Override
+    public boolean aggiungiItinerario(Itinerario itinerario) {
+        return contest.aggiungiItinerario(itinerario);
+    }
+
+    @Override
+    public boolean aggiungiPartecipante(Utente partecipante) {
+        return contest.aggiungiPartecipante(partecipante);
+    }
 }
+

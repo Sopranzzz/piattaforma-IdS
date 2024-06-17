@@ -15,7 +15,7 @@ public abstract class Contenuto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="contenuto_id")
-    private long ID;
+    private Long ID;
 
     private String nome;
     private String autore;
