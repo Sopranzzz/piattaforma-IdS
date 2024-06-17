@@ -7,6 +7,9 @@ import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,6 +26,16 @@ public class ConcreteContest implements Contest {
     private String autore;
     private String tema;
     private int durata;
+    @Setter
+    @Getter
+    @ManyToOne
+    @JoinColumn(name = "winner_poi_id")
+    private POI winnerPoi;
+    @Setter
+    @Getter
+    @ManyToOne
+    @JoinColumn(name = "winner_itinerario_id")
+    private Itinerario winnerItinerario;
     @ManyToMany
     @JoinTable(
             name = "contest_participants",
@@ -37,6 +50,13 @@ public class ConcreteContest implements Contest {
             inverseJoinColumns = @JoinColumn(name = "poi_id")
     )
     private List<POI> poiList = new ArrayList<>();
+    @ManyToMany
+    @JoinTable(
+            name = "contest_itineraries",
+            joinColumns = @JoinColumn(name = "contest_id"),
+            inverseJoinColumns = @JoinColumn(name = "itinerario_id")
+    )
+    private List<Itinerario> itinerarioContestList = new ArrayList<>();
 
 
     public ConcreteContest(String nome, String autore, String tema, int durata) {
@@ -58,6 +78,13 @@ public class ConcreteContest implements Contest {
             poiList = new ArrayList<>();
         }
         poiList.add(poi);
+    }
+
+    public void addItinerario(Itinerario itinerario) {
+        if (itinerarioContestList == null) {
+            itinerarioContestList = new ArrayList<>();
+        }
+        itinerarioContestList.add(itinerario);
     }
 
     @Override
