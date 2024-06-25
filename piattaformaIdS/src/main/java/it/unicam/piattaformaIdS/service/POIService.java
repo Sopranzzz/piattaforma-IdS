@@ -1,8 +1,8 @@
 package it.unicam.piattaformaIdS.service;
-
-import it.unicam.piattaformaIdS.piattaforma.contenuto.Contenuto;
 import it.unicam.piattaformaIdS.piattaforma.contenuto.POI;
-import it.unicam.piattaformaIdS.repository.ContenutoRepository;
+import it.unicam.piattaformaIdS.piattaforma.contenuto.StatoContenuto;
+import it.unicam.piattaformaIdS.repository.POIRepository;
+import it.unicam.piattaformaIdS.repository.UtenteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,24 +11,43 @@ import java.util.List;
 @Service
 public class POIService {
 
-    public final ContenutoRepository contenutoRepository;
+    public final POIRepository poiRepository;
+    public final UtenteRepository utenteRepository;
 
     @Autowired
-    public POIService(ContenutoRepository contenutoRepository) {
-        this.contenutoRepository = contenutoRepository;
+    public POIService(POIRepository poiRepository, UtenteRepository utenteRepository) {
+        this.poiRepository = poiRepository;
+        this.utenteRepository = utenteRepository;
     }
 
-    public void aggiungiPOI(String nome, String autoreContenuto, String descrizioneContenuto) {
-        POI poi = new POI(nome, autoreContenuto, descrizioneContenuto);
-        this.contenutoRepository.save(poi);
+    public void aggiungiPOI(POI poi) {
+        poi.setStatoContenuto(StatoContenuto.Accettato);
+        this.poiRepository.save(poi);
     }
 
-    public List<Contenuto> getAllPOI() {
-        return this.contenutoRepository.findAll();
+    public void aggiungiPOIPending(POI poi) {
+        poi.setStatoContenuto(StatoContenuto.Pending);
+        this.poiRepository.save(poi);
     }
 
-    public void eliminaPOI(POI poi) {
-        this.contenutoRepository.delete(poi);
+    public POI getPoiDetails(Long poiId) {
+        return poiRepository.findById(poiId).orElse(null);
+    }
+
+    public List<POI> getAllPOIs() {
+        return this.poiRepository.findAll();
+    }
+
+    public List<POI> getPOIPending() {
+        return this.poiRepository.findByStatoContenuto(StatoContenuto.Pending);
+    }
+
+    public boolean deletePoi(Long poiId) {
+        if (!poiRepository.existsById(poiId)) {
+            return false;
+        }
+        poiRepository.deleteById(poiId);
+        return true;
     }
 
 }

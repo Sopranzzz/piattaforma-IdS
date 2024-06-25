@@ -1,9 +1,8 @@
-package it.unicam.piattaformaIdS.richieste;
+package it.unicam.piattaformaIdS.richieste.dto;
 
 public class DeleteUtenteDTO {
     private Long utenteId;
 
-    // Getters e setters
     public Long getUtenteId() {
         return utenteId;
     }
