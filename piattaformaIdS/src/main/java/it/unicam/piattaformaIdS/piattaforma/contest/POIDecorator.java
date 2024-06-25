@@ -10,7 +10,7 @@ public class POIDecorator extends ContestDecorator {
 
     @Override
     public boolean aggiungiPOI(POI poi) {
-        return this.contest.aggiungiPOI(poi);
+        return contest.aggiungiPOI(poi);
     }
 
 }

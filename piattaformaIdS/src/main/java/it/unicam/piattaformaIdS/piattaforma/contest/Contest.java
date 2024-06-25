@@ -1,6 +1,5 @@
 package it.unicam.piattaformaIdS.piattaforma.contest;
 
-import it.unicam.piattaformaIdS.piattaforma.contenuto.Contenuto;
 import it.unicam.piattaformaIdS.piattaforma.contenuto.Itinerario;
 import it.unicam.piattaformaIdS.piattaforma.contenuto.POI;
 import it.unicam.piattaformaIdS.piattaforma.utenti.Utente;

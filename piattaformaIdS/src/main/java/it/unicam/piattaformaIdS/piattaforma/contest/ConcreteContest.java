@@ -7,9 +7,6 @@ import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -64,27 +61,6 @@ public class ConcreteContest implements Contest {
         this.autore = autore;
         this.tema = tema;
         this.durata = durata;
-    }
-
-    public void addParticipant(Utente utente) {
-        if (participants == null) {
-            participants = new ArrayList<>();
-        }
-        participants.add(utente);
-    }
-
-    public void addPOI(POI poi) {
-        if (poiList == null) {
-            poiList = new ArrayList<>();
-        }
-        poiList.add(poi);
-    }
-
-    public void addItinerario(Itinerario itinerario) {
-        if (itinerarioContestList == null) {
-            itinerarioContestList = new ArrayList<>();
-        }
-        itinerarioContestList.add(itinerario);
     }
 
     @Override

@@ -1,9 +1,6 @@
 package it.unicam.piattaformaIdS.piattaforma.contest;
 
 import it.unicam.piattaformaIdS.piattaforma.contenuto.Itinerario;
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Entity;
-import lombok.NoArgsConstructor;
 
 public class ItinerarioDecorator extends ContestDecorator {
 
@@ -13,6 +10,6 @@ public class ItinerarioDecorator extends ContestDecorator {
 
     @Override
     public boolean aggiungiItinerario(Itinerario itinerario) {
-        return this.contest.aggiungiItinerario(itinerario);
+        return contest.aggiungiItinerario(itinerario);
     }
 }
