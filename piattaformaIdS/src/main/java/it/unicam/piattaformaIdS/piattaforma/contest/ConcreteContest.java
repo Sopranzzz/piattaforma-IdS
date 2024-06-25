@@ -70,7 +70,7 @@ public class ConcreteContest implements Contest {
 
     @Override
     public List<Itinerario> getItinerari() {
-        return List.of();
+        return itinerarioContestList;
     }
 
     @Override
@@ -80,7 +80,7 @@ public class ConcreteContest implements Contest {
 
     @Override
     public boolean aggiungiItinerario(Itinerario itinerario) {
-        return false;
+        return itinerarioContestList.add(itinerario);
     }
 
     @Override
