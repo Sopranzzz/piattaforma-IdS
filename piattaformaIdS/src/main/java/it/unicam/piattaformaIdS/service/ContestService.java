@@ -1,31 +1,73 @@
 package it.unicam.piattaformaIdS.service;
 
+import it.unicam.piattaformaIdS.piattaforma.contenuto.Itinerario;
+import it.unicam.piattaformaIdS.piattaforma.contenuto.POI;
 import it.unicam.piattaformaIdS.piattaforma.contest.ConcreteContest;
 import it.unicam.piattaformaIdS.piattaforma.contest.Contest;
-import it.unicam.piattaformaIdS.repository.ContestRepository;
-import it.unicam.piattaformaIdS.repository.UtenteRepository;
+import it.unicam.piattaformaIdS.piattaforma.contest.ContributorDecorator;
+import it.unicam.piattaformaIdS.piattaforma.utenti.Utente;
+import it.unicam.piattaformaIdS.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class ContestService {
 
     private final ContestRepository contestRepository;
+    private final ItinerarioRepository itinerarioRepository;
+    private final POIRepository poiRepository;
     private final UtenteRepository utenteRepository;
-    private Contest contest;
 
     @Autowired
-    public ContestService(ContestRepository contestRepository, UtenteRepository utenteRepository) {
+    public ContestService(ContestRepository contestRepository, ItinerarioRepository itinerarioRepository, POIRepository poiRepository, UtenteRepository utenteRepository) {
         this.contestRepository = contestRepository;
+        this.itinerarioRepository = itinerarioRepository;
+        this.poiRepository = poiRepository;
         this.utenteRepository = utenteRepository;
     }
 
-    public void creaContest(String nomeContest, String autore, String tema,
-                            int durata) {
-        ConcreteContest contest = new ConcreteContest(nomeContest, autore,
-                tema, durata);
+    public void creaContest(ConcreteContest contest) {
+        if (contest == null) {
+            throw new IllegalArgumentException("Il Contest non può essere nullo.");
+        }
+        this.contestRepository.save(contest);
+    }
+
+    public void addParticipantAndPOIToContest(Long contestId, Long userId, Long poiId) {
+        ConcreteContest contest = this.contestRepository.findById(contestId)
+                .orElseThrow(() -> new IllegalArgumentException("Contest non trovato con ID: " + contestId));
+        Utente user = this.utenteRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("Utente non trovato con ID: " + userId));
+        POI poi = this.poiRepository.findById(poiId)
+                .orElseThrow(() -> new IllegalArgumentException("POI non trovato con ID: " + poiId));
+
+        Contest decoratedContest = new ContributorDecorator(contest);
+        decoratedContest.aggiungiPartecipante(user);
+        decoratedContest.aggiungiPOI(poi);
+
+        this.contestRepository.save(contest);
+    }
+
+    public void addParticipantAndItinerarioToContest(Long contestId, Long userId, Long itinerarioId) {
+        ConcreteContest contest = this.contestRepository.findById(contestId)
+                .orElseThrow(() -> new IllegalArgumentException("Contest non trovato con ID: " + contestId));
+
+        Utente user = this.utenteRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("Utente non trovato con ID: " + userId));
+
+        Itinerario itinerario = this.itinerarioRepository.findById(itinerarioId)
+                .orElseThrow(() -> new IllegalArgumentException("Itinerario non trovato con ID: " + itinerarioId));
+
+        Contest decoratedContest = new ContributorDecorator(contest);
+        decoratedContest.aggiungiPartecipante(user);
+        decoratedContest.aggiungiItinerario(itinerario);
+
         this.contestRepository.save(contest);
     }
 
@@ -39,6 +81,50 @@ public class ContestService {
 
     public void save(ConcreteContest contest) {
         this.contestRepository.save(contest);
+    }
+
+    public ConcreteContest getContest(Long contestId) {
+        Optional<ConcreteContest> contestOptional = contestRepository.findById(contestId);
+        if (contestOptional.isEmpty()) {
+            throw new IllegalArgumentException("Contest not found with ID: " + contestId);
+        }
+        return contestOptional.get();
+    }
+
+    public boolean setWinnerPoi(Long contestId, Long poiId) {
+        Optional<ConcreteContest> contestOpt = contestRepository.findById(contestId);
+        if (!contestOpt.isPresent()) {
+            return false;
+        }
+        Optional<POI> poiOpt = poiRepository.findById(poiId);
+        if (!poiOpt.isPresent()) {
+            return false;
+        }
+        ConcreteContest contest = contestOpt.get();
+        POI poi = poiOpt.get();
+
+        contest.setWinnerPoi(poi);
+        contestRepository.save(contest);
+        return true;
+    }
+
+    public boolean setWinnerItinerario(Long contestId, Long itinerarioId) {
+        Optional<ConcreteContest> contestOpt = contestRepository.findById(contestId);
+        if (!contestOpt.isPresent()) {
+            return false;
+        }
+
+        Optional<Itinerario> itinerarioOpt = itinerarioRepository.findById(itinerarioId);
+        if (!itinerarioOpt.isPresent()) {
+            return false;
+        }
+
+        ConcreteContest contest = contestOpt.get();
+        Itinerario itinerario = itinerarioOpt.get();
+
+        contest.setWinnerItinerario(itinerario);
+        contestRepository.save(contest);
+        return true;
     }
 
 }

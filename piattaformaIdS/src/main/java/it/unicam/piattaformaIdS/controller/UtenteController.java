@@ -1,10 +1,9 @@
 package it.unicam.piattaformaIdS.controller;
 
-import it.unicam.piattaformaIdS.piattaforma.contenuto.POI;
 import it.unicam.piattaformaIdS.piattaforma.utenti.Comune;
 import it.unicam.piattaformaIdS.piattaforma.utenti.RuoloUtente;
 import it.unicam.piattaformaIdS.piattaforma.utenti.Utente;
-import it.unicam.piattaformaIdS.richieste.DeleteUtenteDTO;
+import it.unicam.piattaformaIdS.richieste.dto.DeleteUtenteDTO;
 import it.unicam.piattaformaIdS.service.UtenteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
