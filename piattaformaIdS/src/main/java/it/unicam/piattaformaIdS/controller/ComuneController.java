@@ -1,6 +1,5 @@
 package it.unicam.piattaformaIdS.controller;
 
-import it.unicam.piattaformaIdS.piattaforma.contenuto.Itinerario;
 import it.unicam.piattaformaIdS.piattaforma.utenti.Comune;
 import it.unicam.piattaformaIdS.service.ComuneService;
 import org.springframework.beans.factory.annotation.Autowired;

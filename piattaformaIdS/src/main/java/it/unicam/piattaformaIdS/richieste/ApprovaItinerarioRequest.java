@@ -19,4 +19,5 @@ public class ApprovaItinerarioRequest {
     public void setUserId(Long userId) {
         this.userId = userId;
     }
+
 }

@@ -4,8 +4,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.List;
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -19,11 +17,6 @@ public class Utente {
     private String nome;
     private String username;
     private String email;
-
-    // verificare l'aggiunta di listaNotifiche
-
-    //@OneToMany
-    //private List<Notifica> listaNotifiche;
     @ManyToOne
     @JoinColumn(name = "comune_id")
     private Comune comune;
@@ -44,8 +37,3 @@ public class Utente {
     }
 
 }
-/*public void aggiungiNotifica(Notifica notifica) {
-        this.listaNotifiche.add(notifica);
-    }
-
-     */

@@ -1,7 +1,5 @@
 package it.unicam.piattaformaIdS.piattaforma.contenuto;
 
-import it.unicam.piattaformaIdS.piattaforma.utenti.Utente;
-import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import lombok.*;
@@ -19,4 +17,5 @@ public class POI extends Contenuto {
     public POI(Posizione posizione) {
         this.posizione = posizione;
     }
+
 }

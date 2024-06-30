@@ -28,4 +28,5 @@ public class ParticipantAndPOIRequest {
     public void setPoiId(Long poiId) {
         this.poiId = poiId;
     }
+
 }

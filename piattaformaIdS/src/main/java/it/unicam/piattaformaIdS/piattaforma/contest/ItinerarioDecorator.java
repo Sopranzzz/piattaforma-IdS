@@ -12,4 +12,5 @@ public class ItinerarioDecorator extends ContestDecorator {
     public boolean aggiungiItinerario(Itinerario itinerario) {
         return contest.aggiungiItinerario(itinerario);
     }
+
 }

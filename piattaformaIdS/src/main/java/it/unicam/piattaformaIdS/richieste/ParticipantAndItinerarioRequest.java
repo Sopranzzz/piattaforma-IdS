@@ -28,4 +28,5 @@ public class ParticipantAndItinerarioRequest {
     public void setItinerarioId(Long itinerarioId) {
         this.itinerarioId = itinerarioId;
     }
+
 }

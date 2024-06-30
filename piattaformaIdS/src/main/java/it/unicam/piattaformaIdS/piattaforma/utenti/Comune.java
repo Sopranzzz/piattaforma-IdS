@@ -1,4 +1,5 @@
 package it.unicam.piattaformaIdS.piattaforma.utenti;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,4 +26,5 @@ public class Comune {
         this.provincia = provincia;
         this.regione = regione;
     }
+
 }

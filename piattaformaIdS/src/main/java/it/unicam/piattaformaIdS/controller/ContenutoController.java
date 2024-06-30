@@ -3,8 +3,6 @@ package it.unicam.piattaformaIdS.controller;
 import it.unicam.piattaformaIdS.richieste.ApprovaItinerarioRequest;
 import it.unicam.piattaformaIdS.richieste.ApprovaPoiRequest;
 import it.unicam.piattaformaIdS.service.ContenutoService;
-import it.unicam.piattaformaIdS.service.ItinerarioService;
-import it.unicam.piattaformaIdS.service.POIService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

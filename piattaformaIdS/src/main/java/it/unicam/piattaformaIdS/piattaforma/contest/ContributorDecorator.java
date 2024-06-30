@@ -12,4 +12,5 @@ public class ContributorDecorator extends ContestDecorator {
     public boolean aggiungiPartecipante(Utente partecipante) {
         return contest.aggiungiPartecipante(partecipante);
     }
+
 }
