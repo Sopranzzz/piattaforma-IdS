@@ -17,15 +17,28 @@ public class POIController {
     private POIService poiService;
 
     @PostMapping("/aggiungiPOI")
-    public ResponseEntity<Object> aggiungiPOI(@RequestBody POI poi) {
-        this.poiService.aggiungiPOI(poi);
-        return new ResponseEntity<>("Il POI è stato aggiunto con stato: Accettato", HttpStatus.CREATED);
+    public ResponseEntity<String> aggiungiPOI(@RequestBody POI poi, @RequestParam Long userId) {
+        try {
+            if (poiService.aggiungiPOI(poi, userId)) {
+                return ResponseEntity.ok("Il POI è stato aggiunto con successo!");
+            } else {
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Utente non autorizzato ad aggiungere un POI.");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Errore: " + e.getMessage());
+        }
     }
 
     @PostMapping("/aggiungiPOIPending")
-    public ResponseEntity<Object> aggiungiPOIPending(@RequestBody POI poi) {
-        this.poiService.aggiungiPOIPending(poi);
-        return new ResponseEntity<>("Il POI è stato aggiunto con stato: Pending", HttpStatus.CREATED);
+    public ResponseEntity<Object> aggiungiPOIPending(@RequestBody POI poi, @RequestParam Long userId) {
+        try {
+            this.poiService.aggiungiPOIPending(poi, userId);
+            return ResponseEntity.status(HttpStatus.CREATED).body("Il POI è stato aggiunto con stato: Pending");
+        } catch (SecurityException e) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Errore: " + e.getMessage());
+        }
     }
 
     @GetMapping("/getPOIDetails")

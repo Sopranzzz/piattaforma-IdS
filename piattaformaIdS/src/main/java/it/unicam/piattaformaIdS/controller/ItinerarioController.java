@@ -17,15 +17,27 @@ public class ItinerarioController {
     private ItinerarioService itinerarioService;
 
     @PostMapping("/aggiungiItinerario")
-    public ResponseEntity<Object> aggiungiItinerario(@RequestBody Itinerario itinerario) {
-        this.itinerarioService.aggiungiItinerario(itinerario);
-        return new ResponseEntity<>("L'itinerario è stato aggiunto con stato: Accettato", HttpStatus.OK);
+    public ResponseEntity<String> aggiungiItinerario(@RequestBody Itinerario itinerario, @RequestParam Long userId) {
+        try {
+            itinerarioService.aggiungiItinerario(itinerario, userId);
+            return ResponseEntity.ok("L'itinerario è stato aggiunto con successo!");
+        } catch (SecurityException e) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Errore: " + e.getMessage());
+        }
     }
 
     @PostMapping("/aggiungiItinerarioPending")
-    public ResponseEntity<Object> aggiungiItinerarioPending(@RequestBody Itinerario itinerario) {
-        this.itinerarioService.aggiungiItinerarioPending(itinerario);
-        return new ResponseEntity<>("L'itinerario è stato aggiunto con stato: Pending", HttpStatus.CREATED);
+    public ResponseEntity<String> aggiungiItinerarioPending(@RequestBody Itinerario itinerario, @RequestParam Long userId) {
+        try {
+            itinerarioService.aggiungiItinerarioPending(itinerario, userId);
+            return ResponseEntity.status(HttpStatus.CREATED).body("L'itinerario è stato aggiunto con stato: Pending.");
+        } catch (SecurityException e) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Errore: " + e.getMessage());
+        }
     }
 
     @GetMapping("/getItinerarioDetails")

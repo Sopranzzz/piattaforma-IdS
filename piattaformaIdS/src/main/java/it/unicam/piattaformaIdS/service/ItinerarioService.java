@@ -1,7 +1,10 @@
 package it.unicam.piattaformaIdS.service;
 import it.unicam.piattaformaIdS.piattaforma.contenuto.Itinerario;
 import it.unicam.piattaformaIdS.piattaforma.contenuto.StatoContenuto;
+import it.unicam.piattaformaIdS.piattaforma.utenti.RuoloUtente;
+import it.unicam.piattaformaIdS.piattaforma.utenti.Utente;
 import it.unicam.piattaformaIdS.repository.ItinerarioRepository;
+import it.unicam.piattaformaIdS.repository.UtenteRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,19 +13,33 @@ import java.util.List;
 public class ItinerarioService {
 
     public final ItinerarioRepository itinerarioRepository;
+    public final UtenteRepository utenteRepository;
 
-    public ItinerarioService(ItinerarioRepository itinerarioRepository) {
+    public ItinerarioService(ItinerarioRepository itinerarioRepository, UtenteRepository utenteRepository) {
         this.itinerarioRepository = itinerarioRepository;
+        this.utenteRepository = utenteRepository;
     }
 
-    public void aggiungiItinerario(Itinerario itinerario) {
-        itinerario.setStatoContenuto(StatoContenuto.Accettato);
-        this.itinerarioRepository.save(itinerario);
+    public void aggiungiItinerario(Itinerario itinerario, Long userId) {
+        Utente utente = utenteRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("Utente non trovato"));
+
+        if (utente.getRuoloUtente() == RuoloUtente.Contributor_Autorizzato) {
+            itinerario.setStatoContenuto(StatoContenuto.Accettato);
+            itinerarioRepository.save(itinerario);
+        } else {
+            throw new SecurityException("Non sei autorizzato ad aggiungere un Itinerario!");
+        }
     }
 
-    public void aggiungiItinerarioPending(Itinerario itinerario) {
-        if(itinerario.getStatoContenuto().equals(StatoContenuto.Pending))
-            this.itinerarioRepository.save(itinerario);
+    public void aggiungiItinerarioPending(Itinerario itinerario, Long userId) {
+        Utente utente = utenteRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("Utente non trovato"));
+
+        if (utente.getRuoloUtente() == RuoloUtente.Contributor) {
+            itinerario.setStatoContenuto(StatoContenuto.Pending);
+            itinerarioRepository.save(itinerario);
+        } else {
+            throw new SecurityException("Non sei autorizzato ad aggiungere un Itinerario in stato Pending!");
+        }
     }
 
     public Itinerario getItinerarioDetails(Long itinerarioId) {

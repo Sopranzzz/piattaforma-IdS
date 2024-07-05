@@ -1,6 +1,8 @@
 package it.unicam.piattaformaIdS.service;
 import it.unicam.piattaformaIdS.piattaforma.contenuto.POI;
 import it.unicam.piattaformaIdS.piattaforma.contenuto.StatoContenuto;
+import it.unicam.piattaformaIdS.piattaforma.utenti.RuoloUtente;
+import it.unicam.piattaformaIdS.piattaforma.utenti.Utente;
 import it.unicam.piattaformaIdS.repository.POIRepository;
 import it.unicam.piattaformaIdS.repository.UtenteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,14 +22,25 @@ public class POIService {
         this.utenteRepository = utenteRepository;
     }
 
-    public void aggiungiPOI(POI poi) {
-        poi.setStatoContenuto(StatoContenuto.Accettato);
-        this.poiRepository.save(poi);
+    public boolean aggiungiPOI(POI poi, Long userId) {
+        Utente utente = utenteRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("Utente non trovato"));
+        if (utente.getRuoloUtente() == RuoloUtente.Contributor_Autorizzato) {
+            poi.setStatoContenuto(StatoContenuto.Accettato);
+            this.poiRepository.save(poi);
+        } else {
+            throw new SecurityException("Non sei autorizzato ad aggiungere un POI!");
+        }
+        return true;
     }
 
-    public void aggiungiPOIPending(POI poi) {
-        poi.setStatoContenuto(StatoContenuto.Pending);
-        this.poiRepository.save(poi);
+    public void aggiungiPOIPending(POI poi, Long userId) {
+        Utente utente = utenteRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("Utente non trovato"));
+        if (utente.getRuoloUtente() == RuoloUtente.Contributor) {
+            poi.setStatoContenuto(StatoContenuto.Pending);
+            this.poiRepository.save(poi);
+        } else {
+            throw new SecurityException("Non sei autorizzato ad aggiungere un POI in stato Pending!");
+        }
     }
 
     public POI getPoiDetails(Long poiId) {
