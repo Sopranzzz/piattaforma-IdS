@@ -67,7 +67,7 @@ public class ItinerarioController {
         if (!success) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Itinerario con ID " + deleteItinerarioDTO.getItinerarioId() + " non trovato");
         }
-        return ResponseEntity.ok("Itinerario con ID " + deleteItinerarioDTO.getItinerarioId() + " è stato eliminato con successo");
+        return ResponseEntity.ok("Itinerario con ID " + deleteItinerarioDTO.getItinerarioId() + " è stato eliminato con successo!");
     }
 
 }

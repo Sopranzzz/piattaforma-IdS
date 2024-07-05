@@ -18,7 +18,7 @@ public class ComuneController {
     @PostMapping("/aggiungiComune")
     public ResponseEntity<Object> aggiungiComune(@RequestBody Comune comune) {
         this.comuneService.aggiungiComune(comune);
-        return new ResponseEntity<>("Il comune è stato aggiunto.", HttpStatus.OK);
+        return new ResponseEntity<>("Il Comune è stato aggiunto con successo!", HttpStatus.OK);
     }
 
 }

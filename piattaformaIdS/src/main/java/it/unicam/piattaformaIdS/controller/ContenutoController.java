@@ -20,9 +20,9 @@ public class ContenutoController {
     public ResponseEntity<Object> approvaPOI(@RequestBody ApprovaPoiRequest request) {
         try {
             this.contenutoService.approvaPOI(request.getPoiId(), request.getUserId());
-            return ResponseEntity.ok().body("Il POI è stato approvato.");
+            return ResponseEntity.ok().body("Il POI è stato approvato!");
         } catch (IllegalAccessException e) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Non hai i permessi per approvare il POI.");
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Non hai i permessi per approvare il POI!");
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Utente non trovato.");
         }
@@ -32,9 +32,9 @@ public class ContenutoController {
     public ResponseEntity<Object> approvaItinerario(@RequestBody ApprovaItinerarioRequest request) {
         try {
             this.contenutoService.approvaItinerario(request.getItinerarioId(), request.getUserId());
-            return ResponseEntity.ok().body("L'itinerario è stato approvato.");
+            return ResponseEntity.ok().body("L'itinerario è stato approvato!");
         } catch (IllegalAccessException e) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Non hai i permessi per approvare l'itinerario.");
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Non hai i permessi per approvare l'itinerario!");
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Utente non trovato.");
         }

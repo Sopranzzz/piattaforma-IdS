@@ -40,7 +40,7 @@ public class ContestController {
     public ResponseEntity<String> addParticipantAndPOI(@RequestBody ParticipantAndPOIRequest request) {
         try {
             contestService.addParticipantAndPOIToContest(request.getContestId(), request.getUserId(), request.getPoiId());
-            return ResponseEntity.ok("Utente e POI aggiunti con successo al contest.");
+            return ResponseEntity.ok("Utente e POI aggiunti al contest con successo!");
         } catch (UserAlreadyExistsException | POIAlreadyExistsException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e) {
@@ -52,7 +52,7 @@ public class ContestController {
     public ResponseEntity<String> addParticipantAndItinerario(@RequestBody ParticipantAndItinerarioRequest request) {
         try {
             contestService.addParticipantAndItinerarioToContest(request.getContestId(), request.getUserId(), request.getItinerarioId());
-            return ResponseEntity.ok("Utente e itinerario aggiunti con successo al contest.");
+            return ResponseEntity.ok("Utente ed itinerario aggiunti al contest con successo!");
         } catch (UserAlreadyExistsException | ItineraryAlreadyExistsException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e) {
@@ -66,7 +66,7 @@ public class ContestController {
         if (!success) {
             return ResponseEntity.badRequest().body("Contest o POI non trovato");
         }
-        return ResponseEntity.ok("Il POI con ID: " + winnerSelection.getPoiId() + " è il vincitore del contest con ID: " + winnerSelection.getContestId());
+        return ResponseEntity.ok("Il POI con ID: " + winnerSelection.getPoiId() + " è il vincitore del contest con ID: " + winnerSelection.getContestId() + "!");
     }
 
     @PutMapping("/scegliItinerarioVincitore")
@@ -75,7 +75,7 @@ public class ContestController {
         if (!success) {
             return ResponseEntity.badRequest().body("Contest o Itinerario non trovato");
         }
-        return ResponseEntity.ok("L'Itinerario con ID: " + winnerSelection.getItinerarioId() + " è il vincitore del contest con ID: " + winnerSelection.getContestId());
+        return ResponseEntity.ok("L'Itinerario con ID: " + winnerSelection.getItinerarioId() + " è il vincitore del contest con ID: " + winnerSelection.getContestId()+ "!");
     }
 
 }

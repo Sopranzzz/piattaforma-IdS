@@ -68,7 +68,7 @@ public class POIController {
         if (!success) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("POI con ID " + deletePoiDTO.getPoiId() + " non trovato");
         }
-        return ResponseEntity.ok("POI con ID " + deletePoiDTO.getPoiId() + " è stato eliminato con successo");
+        return ResponseEntity.ok("POI con ID " + deletePoiDTO.getPoiId() + " è stato eliminato con successo!");
     }
 
 }

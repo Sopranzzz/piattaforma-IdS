@@ -25,7 +25,7 @@ public class UtenteController {
         Comune comune = utente.getComune();
         RuoloUtente ruoloUtente = utente.getRuoloUtente();
         this.utenteService.aggiungiUtente(nome, username, email, comune, ruoloUtente);
-        return new ResponseEntity<>("L'Utente è stato aggiunto", HttpStatus.CREATED);
+        return new ResponseEntity<>("L'Utente è stato aggiunto con successo!", HttpStatus.CREATED);
     }
 
     @GetMapping("/getUtenti")
@@ -40,7 +40,7 @@ public class UtenteController {
         if (!success) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Utente con ID " + deleteUtenteDTO.getUtenteId() + " non trovato");
         }
-        return ResponseEntity.ok("Utente con ID " + deleteUtenteDTO.getUtenteId() + " è stato eliminato con successo");
+        return ResponseEntity.ok("Utente con ID " + deleteUtenteDTO.getUtenteId() + " è stato eliminato con successo!");
     }
 
 }
