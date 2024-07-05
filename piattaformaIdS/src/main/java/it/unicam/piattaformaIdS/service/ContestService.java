@@ -2,9 +2,7 @@ package it.unicam.piattaformaIdS.service;
 
 import it.unicam.piattaformaIdS.piattaforma.contenuto.Itinerario;
 import it.unicam.piattaformaIdS.piattaforma.contenuto.POI;
-import it.unicam.piattaformaIdS.piattaforma.contest.ConcreteContest;
-import it.unicam.piattaformaIdS.piattaforma.contest.Contest;
-import it.unicam.piattaformaIdS.piattaforma.contest.ContributorDecorator;
+import it.unicam.piattaformaIdS.piattaforma.contest.*;
 import it.unicam.piattaformaIdS.piattaforma.utenti.Utente;
 import it.unicam.piattaformaIdS.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,9 +42,13 @@ public class ContestService {
         POI poi = this.poiRepository.findById(poiId)
                 .orElseThrow(() -> new IllegalArgumentException("POI non trovato con ID: " + poiId));
 
-        Contest decoratedContest = new ContributorDecorator(contest);
-        decoratedContest.aggiungiPartecipante(user);
-        decoratedContest.aggiungiPOI(poi);
+        Contest decoratedContest = new ContributorDecorator(new POIDecorator(contest));
+        boolean userAdded = decoratedContest.aggiungiPartecipante(user);
+        boolean poiAdded = decoratedContest.aggiungiPOI(poi);
+
+        if (!userAdded || !poiAdded) {
+            throw new RuntimeException("Non è stato possibile aggiungere l'utente o il POI al contest.");
+        }
 
         this.contestRepository.save(contest);
     }
@@ -61,9 +63,13 @@ public class ContestService {
         Itinerario itinerario = this.itinerarioRepository.findById(itinerarioId)
                 .orElseThrow(() -> new IllegalArgumentException("Itinerario non trovato con ID: " + itinerarioId));
 
-        Contest decoratedContest = new ContributorDecorator(contest);
-        decoratedContest.aggiungiPartecipante(user);
-        decoratedContest.aggiungiItinerario(itinerario);
+        Contest decoratedContest = new ContributorDecorator(new ItinerarioDecorator(contest));
+        boolean userAdded = decoratedContest.aggiungiPartecipante(user);
+        boolean itineraryAdded = decoratedContest.aggiungiItinerario(itinerario);
+
+        if (!userAdded || !itineraryAdded) {
+            throw new RuntimeException("Non è stato possibile aggiungere l'utente o l'itinerario al contest.");
+        }
 
         this.contestRepository.save(contest);
     }

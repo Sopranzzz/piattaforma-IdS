@@ -74,6 +74,11 @@ public class ConcreteContest implements Contest {
     }
 
     @Override
+    public List<Utente> getUtenti() {
+        return participants;
+    }
+
+    @Override
     public boolean aggiungiPOI(POI poi) {
         return poiList.add(poi);
     }

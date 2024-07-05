@@ -1,5 +1,6 @@
 package it.unicam.piattaformaIdS.piattaforma.contest;
 
+import it.unicam.piattaformaIdS.eccezioni.UserAlreadyExistsException;
 import it.unicam.piattaformaIdS.piattaforma.utenti.Utente;
 
 public class ContributorDecorator extends ContestDecorator {
@@ -10,7 +11,11 @@ public class ContributorDecorator extends ContestDecorator {
 
     @Override
     public boolean aggiungiPartecipante(Utente partecipante) {
-        return contest.aggiungiPartecipante(partecipante);
+        if (!contest.getUtenti().contains(partecipante)) {
+            return super.aggiungiPartecipante(partecipante);
+        } else {
+            throw new UserAlreadyExistsException("Il partecipante: " + partecipante.getNome() + " è già iscritto!");
+        }
     }
 
 }

@@ -1,5 +1,8 @@
 package it.unicam.piattaformaIdS.controller;
 
+import it.unicam.piattaformaIdS.eccezioni.ItineraryAlreadyExistsException;
+import it.unicam.piattaformaIdS.eccezioni.POIAlreadyExistsException;
+import it.unicam.piattaformaIdS.eccezioni.UserAlreadyExistsException;
 import it.unicam.piattaformaIdS.piattaforma.contest.ConcreteContest;
 import it.unicam.piattaformaIdS.richieste.dto.ItinerarioWinnderSelectionDTO;
 import it.unicam.piattaformaIdS.service.ContestService;
@@ -36,8 +39,10 @@ public class ContestController {
         try {
             contestService.addParticipantAndPOIToContest(request.getContestId(), request.getUserId(), request.getPoiId());
             return ResponseEntity.ok("Utente e POI aggiunti con successo al contest.");
+        } catch (UserAlreadyExistsException | POIAlreadyExistsException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Errore: " + e.getMessage());
         }
     }
 
@@ -46,8 +51,10 @@ public class ContestController {
         try {
             contestService.addParticipantAndItinerarioToContest(request.getContestId(), request.getUserId(), request.getItinerarioId());
             return ResponseEntity.ok("Utente e itinerario aggiunti con successo al contest.");
+        } catch (UserAlreadyExistsException | ItineraryAlreadyExistsException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Errore: " + e.getMessage());
         }
     }
 

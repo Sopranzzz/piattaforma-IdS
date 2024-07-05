@@ -7,11 +7,10 @@ import it.unicam.piattaformaIdS.piattaforma.utenti.Utente;
 import java.util.List;
 
 public interface Contest {
-
     List<POI> getPOIs();
     List<Itinerario> getItinerari();
+    List<Utente> getUtenti();
     boolean aggiungiPOI(POI poi);
     boolean aggiungiItinerario(Itinerario itinerario);
     boolean aggiungiPartecipante(Utente partecipante);
-
 }

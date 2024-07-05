@@ -24,6 +24,11 @@ public class ContestDecorator implements Contest {
     }
 
     @Override
+    public List<Utente> getUtenti() {
+        return contest.getUtenti();
+    }
+
+    @Override
     public boolean aggiungiPOI(POI poi) {
         return contest.aggiungiPOI(poi);
     }

@@ -1,5 +1,6 @@
 package it.unicam.piattaformaIdS.piattaforma.contest;
 
+import it.unicam.piattaformaIdS.eccezioni.ItineraryAlreadyExistsException;
 import it.unicam.piattaformaIdS.piattaforma.contenuto.Itinerario;
 
 public class ItinerarioDecorator extends ContestDecorator {
@@ -10,7 +11,11 @@ public class ItinerarioDecorator extends ContestDecorator {
 
     @Override
     public boolean aggiungiItinerario(Itinerario itinerario) {
-        return contest.aggiungiItinerario(itinerario);
+        if (!contest.getItinerari().contains(itinerario)) {
+            return super.aggiungiItinerario(itinerario);
+        } else {
+            throw new ItineraryAlreadyExistsException("L'Itinerario: " + itinerario.getNome() + " è già presente!");
+        }
     }
 
 }
