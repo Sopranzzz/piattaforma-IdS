@@ -3,6 +3,7 @@ package it.unicam.piattaformaIdS.service;
 import it.unicam.piattaformaIdS.piattaforma.contenuto.Itinerario;
 import it.unicam.piattaformaIdS.piattaforma.contenuto.POI;
 import it.unicam.piattaformaIdS.piattaforma.contest.*;
+import it.unicam.piattaformaIdS.piattaforma.utenti.RuoloUtente;
 import it.unicam.piattaformaIdS.piattaforma.utenti.Utente;
 import it.unicam.piattaformaIdS.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,10 +28,14 @@ public class ContestService {
         this.utenteRepository = utenteRepository;
     }
 
-    public void creaContest(ConcreteContest contest) {
-        if (contest == null) {
-            throw new IllegalArgumentException("Il Contest non può essere nullo.");
+    public void creaContest(ConcreteContest contest, Long userId) {
+        Utente utente = utenteRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("Utente non trovato con ID: " + userId));
+
+        if (utente.getRuoloUtente() != RuoloUtente.Animatore) {
+            throw new SecurityException("Non sei autorizzato a creare un Contest!");
         }
+
         this.contestRepository.save(contest);
     }
 

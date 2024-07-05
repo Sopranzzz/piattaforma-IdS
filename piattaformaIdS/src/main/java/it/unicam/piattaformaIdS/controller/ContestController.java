@@ -25,10 +25,12 @@ public class ContestController {
     }
 
     @PostMapping("/creaContest")
-    public ResponseEntity<Object> creaContest(@RequestBody ConcreteContest contest) {
+    public ResponseEntity<Object> creaContest(@RequestBody ConcreteContest contest, @RequestParam Long userId) {
         try {
-            contestService.creaContest(contest);
-            return ResponseEntity.status(HttpStatus.CREATED).body("Il Contest è stato creato con successo.");
+            contestService.creaContest(contest, userId);
+            return new ResponseEntity<>("Il Contest è stato creato con successo!", HttpStatus.CREATED);
+        } catch (SecurityException e) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Errore nella creazione del contest: " + e.getMessage());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Errore nella creazione del contest: " + e.getMessage());
         }
