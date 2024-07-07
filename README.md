@@ -9,4 +9,6 @@ Il progetto è stato sviluppato in Java, con l'ausilio del framework Spring Boot
 
 Il file di Visual Paradigm si trova nella cartella: piattaformaIds -> VisualParadigm.
 
+
+# Testare l'applicazione:
 Per testare l'applicazione è sufficiente avviarla ed eseguire le chiamate API tramite Postman.
